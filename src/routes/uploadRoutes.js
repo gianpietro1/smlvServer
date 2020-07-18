@@ -12,8 +12,9 @@ const s3 = new AWS.S3({
 
 router.get("/upload", (req, res) => {
   //const key = `${req.user.id}/${uuid()}.jpeg`;
-  const key = `adminUser/${uuid()}.jpeg`;
 
+  const key = `adminUser/${uuid()}.jpeg`;
+  console.log(s3.config.accessKeyId, s3.config.secretAccessKey);
   s3.getSignedUrl(
     "putObject",
     {
