@@ -16,7 +16,7 @@ router.post("/signin", async (req, res) => {
   }
   const passwordsAreEqual = await user.comparePassword(password);
   if (passwordsAreEqual) {
-    const token = jwt.sign({ userId: user._id }, "MY_SECRET_KEY");
+    const token = jwt.sign({ userId: user._id }, process.env.cryptoKey);
     res.send({ token, userId: user._id, isAdmin: user.isAdmin });
   } else {
     return res.status(422).send({ error: "Invalid password or email" });
