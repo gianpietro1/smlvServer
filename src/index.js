@@ -4,7 +4,7 @@ require("./models/Cause");
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const keys = require("./config/keys");
+//const keys = require("./config/keys");
 
 const app = express();
 app.use(bodyParser.json());
@@ -20,7 +20,7 @@ app.use(projectRoutes);
 const causeRoutes = require("./routes/causeRoutes");
 app.use(causeRoutes);
 
-mongoose.connect(keys.mongoURI, {
+mongoose.connect(process.env.mongoURI, {
   useNewUrlParser: true,
   useCreateIndex: true,
 });
