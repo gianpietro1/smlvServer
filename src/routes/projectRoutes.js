@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get("/projects", async (req, res) => {
   const projects = await Project.find()
-    .sort({ expires: 1 })
+    .sort({ name: 1 })
     .lean();
   const promises = projects.map(async (project) => {
     return {
