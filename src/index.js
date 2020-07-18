@@ -35,4 +35,4 @@ app.get("/", (req, res) => {
   res.send("Hi there!");
 });
 
-app.listen(3000, () => {});
+app.listen(process.env.PORT || 3000, () => {});
