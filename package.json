@@ -17,5 +17,8 @@
     "mongoose": "^5.9.24",
     "nodemon": "^2.0.4",
     "uuid": "^8.2.0"
+  },
+  "engines": {
+    "node": "12.x"
   }
 }
