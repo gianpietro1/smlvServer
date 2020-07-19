@@ -24,11 +24,6 @@ router.get("/projects", async (req, res) => {
 });
 
 router.post("/projects", requireAuth, async (req, res) => {
-  const { name } = req.body;
-  if (!name) {
-    return res.status(422).send({ error: "You must provide a name" });
-  }
-
   try {
     const project = new Project(req.body);
     await project.save();
