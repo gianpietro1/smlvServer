@@ -11,6 +11,7 @@ const projectSchema = new mongoose.Schema({
   facebook: String,
   instagram: String,
   youtube: String,
+  whatsapp: String,
   imageUrl: String,
   isActive: Boolean,
   _member: { type: Schema.Types.ObjectId, ref: "Member" },
