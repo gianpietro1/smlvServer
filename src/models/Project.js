@@ -14,6 +14,10 @@ const projectSchema = new mongoose.Schema({
   whatsapp: String,
   imageUrl: String,
   isActive: Boolean,
+  projectType: {
+    type: String,
+    default: "Producto",
+  },
   _member: { type: Schema.Types.ObjectId, ref: "Member" },
 });
 
