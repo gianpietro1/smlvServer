@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const requireAuth = require("../middlewares/requireAuth");
 
-router.use(requireAuth);
-
 const AWS = require("aws-sdk");
 const { v1: uuid } = require("uuid");
 const keys = require("../config/keys");
@@ -13,7 +11,7 @@ const s3 = new AWS.S3({
   secretAccessKey: keys.secretAccessKey,
 });
 
-router.get("/upload", (req, res) => {
+router.get("/upload", requireAuth, (req, res) => {
   const mini = req.query.mini;
   const type = req.query.type;
 
@@ -48,7 +46,7 @@ router.get("/upload", (req, res) => {
 });
 
 // TO DELETE IN APP v0.1.5+
-router.get("/uploadMini", (req, res) => {
+router.get("/uploadMini", requireAuth, (req, res) => {
   const key = `adminUserMinis/${uuid()}.jpeg`;
 
   s3.getSignedUrl(
@@ -64,9 +62,8 @@ router.get("/uploadMini", (req, res) => {
   );
 });
 
-router.delete("/upload", (req, res) => {
+router.delete("/upload", requireAuth, (req, res) => {
   const key = req.query.key;
-  console.log(key);
 
   s3.deleteObject(
     {
