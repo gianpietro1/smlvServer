@@ -20,6 +20,17 @@ router.get("/projects", async (req, res) => {
     };
   });
   const newProjects = await Promise.all(promises);
+
+  // const userId = req.query.userId;
+
+  // if (userId) {
+  //   const newProjectsPerUser = newProjects.map((project) => {
+  //     project._member === userId;
+  //   });
+  //   res.send(newProjectsPerUser);
+  //   return;
+  // }
+
   res.send(newProjects);
   // TO REPLACE SINCEAPP v0.1.5+
   // const projects = await Project.find().sort({ name: 1 });

@@ -14,13 +14,13 @@ router.get("/members", async (req, res) => {
 });
 
 router.get("/members/:id", async (req, res) => {
-  const member = await Member.find({ _id: req.params.id });
+  const member = await Member.findOne({ _id: req.params.id });
   res.send(member);
 });
 
 router.put("/members/:id", requireAuth, async (req, res) => {
-  const { email, password } = req.body;
-  let member = await Member.findOne({ email });
+  const { password } = req.body;
+  let member = await Member.findOne({ _id: req.params.id });
   const passwordsAreEqual = await member.comparePassword(password);
   if (passwordsAreEqual) {
     // password is NOT changing
