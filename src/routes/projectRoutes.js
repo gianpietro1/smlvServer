@@ -21,6 +21,9 @@ router.get("/projects", async (req, res) => {
   });
   const newProjects = await Promise.all(promises);
   res.send(newProjects);
+  // TO REPLACE SINCEAPP v0.1.5+
+  // const projects = await Project.find().sort({ name: 1 });
+  // res.send(projects);
 });
 
 router.post("/projects", requireAuth, async (req, res) => {

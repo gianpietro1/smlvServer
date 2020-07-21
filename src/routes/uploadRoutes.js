@@ -1,5 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const requireAuth = require("../middlewares/requireAuth");
+
+router.use(requireAuth);
 
 const AWS = require("aws-sdk");
 const { v1: uuid } = require("uuid");
@@ -11,7 +14,25 @@ const s3 = new AWS.S3({
 });
 
 router.get("/upload", (req, res) => {
-  const key = `adminUser/${uuid()}.jpeg`;
+  const mini = req.query.mini;
+  const type = req.query.type;
+
+  let baseDir = "adminUser";
+  let fileName = `${uuid()}.jpeg`;
+
+  if (type) {
+    if (type === "avatar") {
+      baseDir = "avatars";
+    } else if (type === "project") {
+      baseDir = "projects";
+    }
+  }
+
+  if (mini && mini === "true") {
+    baseDir = baseDir + "-mini";
+  }
+
+  let key = `${baseDir}/${fileName}`;
 
   s3.getSignedUrl(
     "putObject",
@@ -26,6 +47,7 @@ router.get("/upload", (req, res) => {
   );
 });
 
+// TO DELETE IN APP v0.1.5+
 router.get("/uploadMini", (req, res) => {
   const key = `adminUserMinis/${uuid()}.jpeg`;
 
@@ -38,6 +60,21 @@ router.get("/uploadMini", (req, res) => {
     },
     (err, url) => {
       res.send({ key, url });
+    }
+  );
+});
+
+router.delete("/upload", (req, res) => {
+  const key = req.query.key;
+  console.log(key);
+
+  s3.deleteObject(
+    {
+      Bucket: "smlv01",
+      Key: key,
+    },
+    (err, data) => {
+      res.send(data);
     }
   );
 });
