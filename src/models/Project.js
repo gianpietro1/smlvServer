@@ -13,6 +13,7 @@ const projectSchema = new mongoose.Schema({
   youtube: String,
   whatsapp: String,
   imageUrl: String,
+  imageUrlMini: String,
   isActive: Boolean,
   projectType: {
     type: String,

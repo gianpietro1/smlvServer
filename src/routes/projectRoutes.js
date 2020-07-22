@@ -8,33 +8,8 @@ const Member = mongoose.model("Member");
 const router = express.Router();
 
 router.get("/projects", async (req, res) => {
-  const projects = await Project.find()
-    .sort({ name: 1 })
-    .lean();
-  const promises = projects.map(async (project) => {
-    return {
-      ...project,
-      memberData: await Member.findOne({
-        _id: project._member,
-      }),
-    };
-  });
-  const newProjects = await Promise.all(promises);
-
-  // const userId = req.query.userId;
-
-  // if (userId) {
-  //   const newProjectsPerUser = newProjects.map((project) => {
-  //     project._member === userId;
-  //   });
-  //   res.send(newProjectsPerUser);
-  //   return;
-  // }
-
-  res.send(newProjects);
-  // TO REPLACE SINCEAPP v0.1.5+
-  // const projects = await Project.find().sort({ name: 1 });
-  // res.send(projects);
+  const projects = await Project.find().sort({ name: 1 });
+  res.send(projects);
 });
 
 router.post("/projects", requireAuth, async (req, res) => {
