@@ -9,6 +9,8 @@ const keys = require("./config/keys");
 const app = express();
 app.use(bodyParser.json());
 
+app.use(express.static("public", { extensions: ["html"] }));
+
 const memberRoutes = require("./routes/memberRoutes");
 app.use(memberRoutes);
 const uploadRoutes = require("./routes/uploadRoutes");
@@ -31,8 +33,13 @@ mongoose.connection.on("error", (err) =>
   console.log("Error connecting to mongo", err)
 );
 
+// Static routes
 app.get("/", (req, res) => {
-  res.send("Hi there!");
+  res.send("magiqapps!");
+});
+
+app.use(function(req, res) {
+  res.redirect("/");
 });
 
 app.listen(process.env.PORT || 3000, () => {});
