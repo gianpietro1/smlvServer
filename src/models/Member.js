@@ -37,6 +37,10 @@ const memberSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  lastUpdated: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 // Always hash & salt new passwords
