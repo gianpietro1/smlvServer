@@ -39,7 +39,7 @@ const memberSchema = new mongoose.Schema({
   },
   lastUpdated: {
     type: Date,
-    default: Date.now,
+    default: "2020-07-20T11:28:03.501Z",
   },
 });
 
