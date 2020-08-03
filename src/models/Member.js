@@ -41,7 +41,6 @@ const memberSchema = new mongoose.Schema({
     type: Date,
     default: "2020-07-20T11:28:03.501Z",
   },
-  pushToken: String,
 });
 
 // Always hash & salt new passwords

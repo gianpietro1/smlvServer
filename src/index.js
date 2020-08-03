@@ -1,6 +1,6 @@
 require("./models/Member");
 require("./models/Project");
-require("./models/Cause");
+require("./models/PushToken");
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -19,8 +19,8 @@ const authRoutes = require("./routes/authRoutes");
 app.use(authRoutes);
 const projectRoutes = require("./routes/projectRoutes");
 app.use(projectRoutes);
-const causeRoutes = require("./routes/causeRoutes");
-app.use(causeRoutes);
+const notificationRoutes = require("./routes/notificationRoutes");
+app.use(notificationRoutes);
 
 mongoose.connect(keys.mongoURI, {
   useNewUrlParser: true,
