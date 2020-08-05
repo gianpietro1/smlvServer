@@ -19,9 +19,25 @@ router.get("/notifications/tokens", requireAuth, async (req, res) => {
   res.send(tokens);
 });
 
-router.get("/notifications/tokens/:memberId", requireAuth, async (req, res) => {
-  const tokens = await PushToken.find({ _member: req.params.memberId });
+router.get(
+  "/notifications/tokens/member/:memberId",
+  requireAuth,
+  async (req, res) => {
+    const tokens = await PushToken.find({ _member: req.params.memberId });
+    res.send(tokens);
+  }
+);
+
+router.get("/notifications/tokens/token/:token", async (req, res) => {
+  const tokens = await PushToken.find({ pushToken: req.params.token });
   res.send(tokens);
+});
+
+router.delete("/notifications/tokens/:token", requireAuth, async (req, res) => {
+  await PushToken.deleteOne({ pushToken: req.params.token }, function(err) {
+    if (err) return res.status(422).send({ error: "Error deleting the entry" });
+  });
+  res.send(`${req.params.token} deleted.`);
 });
 
 router.post("/notifications/tokens", async (req, res) => {
@@ -45,13 +61,6 @@ router.post("/notifications/tokens", async (req, res) => {
   } catch (err) {
     res.status(422).send({ error: err.message });
   }
-});
-
-router.delete("/notifications/tokens/:token", requireAuth, async (req, res) => {
-  await PushToken.deleteOne({ pushToken: req.params.token }, function(err) {
-    if (err) return res.status(422).send({ error: "Error deleting the entry" });
-  });
-  res.send(`${req.params.token} deleted.`);
 });
 
 router.post("/notifications/send", requireAuth, async (req, res) => {
